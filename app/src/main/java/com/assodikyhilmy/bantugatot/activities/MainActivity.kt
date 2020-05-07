@@ -7,24 +7,12 @@ import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.assodikyhilmy.bantugatot.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    //image button
-    private var buttonPlay: ImageButton? = null
-
-    //high score button
-    private var buttonScore: ImageButton? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //setting the orientation to landscape
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-
-        //getting the button
-        buttonPlay = findViewById<View>(R.id.buttonPlay) as ImageButton
-        //initializing the highscore button
-        buttonScore = findViewById<View>(R.id.buttonScore) as ImageButton
 
         //adding a click listener
         buttonPlay!!.setOnClickListener(this)

@@ -2,12 +2,10 @@ package com.assodikyhilmy.bantugatot.activities
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.assodikyhilmy.bantugatot.R
+import kotlinx.android.synthetic.main.activity_top_score.*
 
 /**
  * Created by lenovo on 13/08/2017.

@@ -1,9 +1,9 @@
 package com.assodikyhilmy.bantugatot.activities
 
-import android.content.pm.ActivityInfo
 import android.graphics.Point
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.assodikyhilmy.bantugatot.views.GameView
 
 /**
  * Created by lenovo on 12/08/2017.
@@ -13,9 +13,6 @@ class GameActivity : AppCompatActivity() {
     private var gameView: GameView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        //setting the orientation to landscape
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
         //Getting display object
         val display = windowManager.defaultDisplay

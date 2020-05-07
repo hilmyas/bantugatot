@@ -1,4 +1,4 @@
-package com.assodikyhilmy.bantugatot.activities
+package com.assodikyhilmy.bantugatot.views
 
 import android.content.Context
 import android.content.SharedPreferences
