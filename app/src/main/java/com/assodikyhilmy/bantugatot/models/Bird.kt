@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
 import com.assodikyhilmy.bantugatot.R
+import timber.log.Timber
 import java.util.*
 
 /**
@@ -14,8 +15,8 @@ class Bird(context: Context, screenX: Int, screenY: Int) {
     //getters
     //bitmap for the enemy
     //we have already pasted the bitmap in the drawable folder
-    private var displayedBitmap: Bitmap
-    val bitmap: Bitmap
+    var displayedBitmap: Bitmap
+    private val bitmap: Bitmap
     private val bitmap2: Bitmap
     private var upState: Boolean
     private var delay: Int

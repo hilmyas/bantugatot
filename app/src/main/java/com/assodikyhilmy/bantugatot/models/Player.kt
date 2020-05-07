@@ -11,9 +11,9 @@ import com.assodikyhilmy.bantugatot.R
  * Created by lenovo on 12/08/2017.
  */
 class Player(context: Context, screenX: Int, screenY: Int) {
-    val bitmap: Bitmap
+    private val bitmap: Bitmap
     private val bitmapLose: Bitmap
-    private var displayedBitmap: Bitmap
+    var displayedBitmap: Bitmap
     private val rotatedBitmap: Bitmap
     val x = 75
     var y = 50

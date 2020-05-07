@@ -9,6 +9,7 @@ import android.graphics.Rect
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.assodikyhilmy.bantugatot.R
 import com.assodikyhilmy.bantugatot.models.*
 import java.util.*
 
@@ -16,7 +17,7 @@ import java.util.*
  * Created by lenovo on 12/08/2017.
  */
 class GameView(context: Context, //a screenX holder
-               var screenX: Int, screenY: Int) : SurfaceView(context), Runnable {
+               screenX: Int, screenY: Int) : SurfaceView(context), Runnable {
     @Volatile
     var playing = false
     private var gameThread: Thread? = null
@@ -103,7 +104,7 @@ class GameView(context: Context, //a screenX holder
                 boom.y = birds[i]!!.y
 
                 //moving enemy outside the left edge
-                birds[i]!!.x = -birds[i]!!.bitmap.width * 3
+                birds[i]!!.x = -birds[i]!!.displayedBitmap.width * 3
                 if (score >= 30 && displayedEnemyCount == 1) {
                     displayedEnemyCount = 2
                 }
@@ -160,7 +161,7 @@ class GameView(context: Context, //a screenX holder
 
             //drawing player
             canvas.drawBitmap(
-                    player.bitmap,
+                    player.displayedBitmap,
                     player.x.toFloat(),
                     player.y.toFloat(),
                     paint)
@@ -168,7 +169,7 @@ class GameView(context: Context, //a screenX holder
             //drawing the birds
             for (i in 0 until birdCount) {
                 canvas.drawBitmap(
-                        birds[i]!!.bitmap,
+                        birds[i]!!.displayedBitmap,
                         birds[i]!!.x.toFloat(),
                         birds[i]!!.y.toFloat(),
                         paint
@@ -194,8 +195,8 @@ class GameView(context: Context, //a screenX holder
             )
 
             //drawing the score on the game screen
-            paint.textSize = 30f
-            canvas.drawText("Score:$score", 100f, 50f, paint)
+            paint.textSize = context.resources.getDimension(R.dimen._24sdp)
+            canvas.drawText("Burung: $score", 100f, paint.textSize, paint)
 
             //draw game Over when the game is over
             if (isGameOver) {
