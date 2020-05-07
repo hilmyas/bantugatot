@@ -8,7 +8,7 @@
     android:paddingTop="150dp"
     android:orientation="vertical"
     android:keepScreenOn="true"
-    tools:context="com.assodikyhilmy.myfirstandroidgame.TopScoreActivity"
+    tools:context="com.assodikyhilmy.bantugatot.activities.TopScoreActivity"
     android:background="@drawable/splash">
 
     <TextView

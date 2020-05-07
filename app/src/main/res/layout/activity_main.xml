@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/splash"
     android:keepScreenOn="true"
-    tools:context="com.assodikyhilmy.myfirstandroidgame.MainActivity">
+    tools:context="com.assodikyhilmy.bantugatot.activities.MainActivity">
 
     <ImageButton
         android:id="@+id/buttonPlay"

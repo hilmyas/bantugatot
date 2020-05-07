@@ -1,4 +1,4 @@
-package com.assodikyhilmy.myfirstandroidgame;
+package com.assodikyhilmy.bantugatot;
 
 import org.junit.Test;
 
