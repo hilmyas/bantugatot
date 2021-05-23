@@ -5,24 +5,29 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.assodikyhilmy.bantugatot.R
-import kotlinx.android.synthetic.main.activity_main.*
+import com.assodikyhilmy.bantugatot.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         //adding a click listener
-        buttonPlay!!.setOnClickListener(this)
+        binding.buttonPlay.setOnClickListener(this)
         //setting the on click listener to high score button
-        buttonScore!!.setOnClickListener(this)
+        binding.buttonScore.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
-        if (v === buttonPlay) {
+        if (v === binding.buttonPlay) {
             //the transition from MainActivity to GameActivity
             startActivity(Intent(this@MainActivity, GameActivity::class.java))
-        } else if (v === buttonScore) {
+        } else if (v === binding.buttonScore) {
             //the transition from MainActivity to HighScore activity
             startActivity(Intent(this@MainActivity, TopScoreActivity::class.java))
         }

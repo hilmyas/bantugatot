@@ -12,12 +12,15 @@ import android.view.SurfaceView
 import com.assodikyhilmy.bantugatot.R
 import com.assodikyhilmy.bantugatot.models.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by lenovo on 12/08/2017.
  */
-class GameView(context: Context, //a screenX holder
-               screenX: Int, screenY: Int) : SurfaceView(context), Runnable {
+class GameView(
+    context: Context, //a screenX holder
+    val screenX: Int, val screenY: Int
+) : SurfaceView(context), Runnable {
     @Volatile
     var playing = false
     private var gameThread: Thread? = null
@@ -34,17 +37,16 @@ class GameView(context: Context, //a screenX holder
     private val clouds = ArrayList<Cloud>()
 
     //Adding enemies object array
-    private val enemies: Array<Enemy?>
+    private val enemies: ArrayList<Enemy>
 
     //Adding birds object array
-    private val birds: Array<Bird?>
+    private val birds: ArrayList<Bird>
 
     //Adding 3 enemies you may increase the size
-    private val enemyCount = 2
-    private var displayedEnemyCount = 1
+    private var displayedEnemyCount = 0
 
     //Adding 3 birds you may increase the size
-    private val birdCount = 2
+    private var birdCount = 0
 
     //defining a boom object to display blast
     private val boom: Boom
@@ -91,6 +93,7 @@ class GameView(context: Context, //a screenX holder
         }
 
         //updating the enemy coordinate with respect to player speed
+        var birdCountTemp = birdCount
         for (i in 0 until birdCount) {
             birds[i]!!.update(player.speed)
 
@@ -105,8 +108,11 @@ class GameView(context: Context, //a screenX holder
 
                 //moving enemy outside the left edge
                 birds[i]!!.x = -birds[i]!!.displayedBitmap.width * 3
-                if (score >= 30 && displayedEnemyCount == 1) {
-                    displayedEnemyCount = 2
+                val displayedEnemyCountTemp = score / 10 + 1
+                if (displayedEnemyCount < displayedEnemyCountTemp) {
+                    enemies.add(Enemy(context, screenX, screenY))
+                    displayedEnemyCount = enemies.size
+                    birdCountTemp = displayedEnemyCount * 2
                 }
             }
         }
@@ -140,6 +146,10 @@ class GameView(context: Context, //a screenX holder
                 e.commit()
             }
         }
+        if (birdCountTemp > birdCount) {
+            birds.add(Bird(context, screenX, screenY))
+            birdCount = birds.size
+        }
     }
 
     private fun draw() {
@@ -153,45 +163,47 @@ class GameView(context: Context, //a screenX holder
             //drawing all stars
             for (c in clouds) {
                 canvas.drawBitmap(
-                        c.bitmap,
-                        c.x.toFloat(),
-                        c.y.toFloat(),
-                        paint)
+                    c.bitmap,
+                    c.x.toFloat(),
+                    c.y.toFloat(),
+                    paint
+                )
             }
 
             //drawing player
             canvas.drawBitmap(
-                    player.displayedBitmap,
-                    player.x.toFloat(),
-                    player.y.toFloat(),
-                    paint)
+                player.displayedBitmap,
+                player.x.toFloat(),
+                player.y.toFloat(),
+                paint
+            )
 
             //drawing the birds
             for (i in 0 until birdCount) {
                 canvas.drawBitmap(
-                        birds[i]!!.displayedBitmap,
-                        birds[i]!!.x.toFloat(),
-                        birds[i]!!.y.toFloat(),
-                        paint
+                    birds[i]!!.displayedBitmap,
+                    birds[i]!!.x.toFloat(),
+                    birds[i]!!.y.toFloat(),
+                    paint
                 )
             }
 
             //drawing the birds
             for (i in 0 until displayedEnemyCount) {
                 canvas.drawBitmap(
-                        enemies[i]!!.bitmap,
-                        enemies[i]!!.x.toFloat(),
-                        enemies[i]!!.y.toFloat(),
-                        paint
+                    enemies[i]!!.bitmap,
+                    enemies[i]!!.x.toFloat(),
+                    enemies[i]!!.y.toFloat(),
+                    paint
                 )
             }
 
             //drawing boom image
             canvas.drawBitmap(
-                    boom.bitmap,
-                    boom.x.toFloat(),
-                    boom.y.toFloat(),
-                    paint
+                boom.bitmap,
+                boom.x.toFloat(),
+                boom.y.toFloat(),
+                paint
             )
 
             //drawing the score on the game screen
@@ -258,16 +270,15 @@ class GameView(context: Context, //a screenX holder
         }
 
         //initializing birds object array
-        birds = arrayOfNulls(birdCount)
-        for (i in 0 until birdCount) {
-            birds[i] = Bird(context, screenX, screenY)
-        }
+        birds = arrayListOf()
+        birds.add(Bird(context, screenX, screenY))
+        birds.add(Bird(context, screenX, screenY))
+        birdCount = birds.size
 
         //initializing birds object array
-        enemies = arrayOfNulls(enemyCount)
-        for (i in 0 until enemyCount) {
-            enemies[i] = Enemy(context, screenX, screenY)
-        }
+        enemies = arrayListOf<Enemy>()
+        enemies.add(Enemy(context, screenX, screenY))
+        displayedEnemyCount = enemies.size
 
         //initializing boom object
         boom = Boom(context)
