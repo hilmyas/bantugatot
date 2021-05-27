@@ -1,53 +1,33 @@
 package com.assodikyhilmy.bantugatot.models
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
 import com.assodikyhilmy.bantugatot.R
-import timber.log.Timber
 import java.util.*
 
 /**
  * Created by lenovo on 12/08/2017.
  */
-class Bird(context: Context, screenX: Int, screenY: Int) {
+class Bird(context: Context, screenX: Int, screenY: Int): MultiFormPhysic() {
+
+    companion object {
+        const val WINGS_UP = "wings_flap_up"
+        const val WINGS_DOWN = "wings_flap_down"
+    }
+
     //getters
-    //bitmap for the enemy
-    //we have already pasted the bitmap in the drawable folder
-    var displayedBitmap: Bitmap
-    private val bitmap: Bitmap
-    private val bitmap2: Bitmap
     private var upState: Boolean
     private var delay: Int
     private val maxDelay = 7 //frames
 
-    //adding a setter to x coordinate so that we can change it after collision
-    //x and y coordinates
-    var x: Int
-    var y: Int
-        private set
-
-    //enemy speed
-    var speed = 1
-        private set
-
-    //min and max coordinates to keep the enemy inside the screen
-    private val maxX: Int
-    private val minX: Int
-    private val maxY: Int
-    private val minY: Int
-
-    //one more getter for getting the rect object
-    //creating a rect object
-    val detectCollision: Rect
     fun update(playerSpeed: Int) {
         if (upState) {
             delay++
             if (delay == maxDelay) {
                 delay = 0
                 upState = false
-                displayedBitmap = bitmap2
+                displayedBitmap = formMap.get(WINGS_DOWN)?: bitmap
             }
         } else {
             delay++
@@ -80,7 +60,7 @@ class Bird(context: Context, screenX: Int, screenY: Int) {
     init {
         //getting bitmap from drawable resource
         bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.bird1)
-        bitmap2 = BitmapFactory.decodeResource(context.resources, R.drawable.bird2)
+        formMap.put(WINGS_DOWN, BitmapFactory.decodeResource(context.resources, R.drawable.bird2))
         displayedBitmap = bitmap
 
         //initializing min and max coordinates

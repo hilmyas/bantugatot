@@ -9,19 +9,7 @@ import java.util.*
 /**
  * Created by lenovo on 12/08/2017.
  */
-class Cloud(context: Context, screenX: Int, screenY: Int) {
-    var x: Int
-        private set
-    var y: Int
-        private set
-    private var speed: Int
-
-    //getters
-    val bitmap: Bitmap
-    private val maxX: Int
-    private val maxY: Int
-    private val minX: Int
-    private val minY: Int
+class Cloud(context: Context, screenX: Int, screenY: Int): BasePhysic() {
     private val distance: Int
     fun update(playerSpeed: Int) {
         //animating the star horizontally left side

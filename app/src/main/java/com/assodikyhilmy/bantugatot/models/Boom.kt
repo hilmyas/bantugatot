@@ -1,22 +1,13 @@
 package com.assodikyhilmy.bantugatot.models
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.assodikyhilmy.bantugatot.R
 
 /**
  * Created by lenovo on 13/08/2017.
  */
-class Boom(context: Context) {
-    //getters
-    //bitmap object
-    var bitmap: Bitmap
-
-    //setters for x and y to make it visible at the place of collision
-    //coordinate variables
-    var x: Int
-    var y: Int
+class Boom(context: Context): BaseModel() {
 
     //constructor
     init {

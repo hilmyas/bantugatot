@@ -10,16 +10,13 @@ import com.assodikyhilmy.bantugatot.R
 /**
  * Created by lenovo on 12/08/2017.
  */
-class Player(context: Context, screenX: Int, screenY: Int) {
-    private val bitmap: Bitmap
-    private val bitmapLose: Bitmap
-    var displayedBitmap: Bitmap
-    private val rotatedBitmap: Bitmap
-    val x = 75
-    var y = 50
-        private set
-    var speed = 0
-        private set
+class Player(context: Context, screenX: Int, screenY: Int): MultiFormPhysic() {
+
+    companion object {
+        const val CHAR_NORMAL = "char_normal"
+        const val CHAR_LOSE = "char_lose"
+        const val CHAR_UP = "char_up"
+    }
 
     //boolean variable to track the ship is boosting or not
     private var boosting: Boolean
@@ -27,16 +24,9 @@ class Player(context: Context, screenX: Int, screenY: Int) {
     //Gravity Value to add gravity effect on the ship
     private val GRAVITY = -10
 
-    //Controlling Y coordinate so that ship won't go outside the screen
-    private val maxY: Int
-    private val minY: Int
-
     //Limit the bounds of the ship's speed
     private val MIN_SPEED = 1
     private val MAX_SPEED = 20
-
-    //one more getter for getting the rect object
-    val detectCollision: Rect
 
     //setting boosting true
     fun setBoosting() {
@@ -52,7 +42,7 @@ class Player(context: Context, screenX: Int, screenY: Int) {
         //if the ship is boosting
         if (boosting) {
             //speeding up the ship
-            displayedBitmap = rotatedBitmap
+            displayedBitmap = formMap.get(CHAR_UP)?: bitmap
             speed += 2
         } else {
             //slowing down if not boosting
@@ -88,7 +78,7 @@ class Player(context: Context, screenX: Int, screenY: Int) {
     }
 
     fun playerLose() {
-        displayedBitmap = bitmapLose
+        displayedBitmap = formMap.get(CHAR_LOSE)?: bitmap
     }
 
     init {
@@ -96,9 +86,12 @@ class Player(context: Context, screenX: Int, screenY: Int) {
         val m = Matrix()
         m.postRotate(-15f)
         bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.player)
-        bitmapLose = BitmapFactory.decodeResource(context.resources, R.drawable.playerlose)
-        rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, false)
+        formMap.put(CHAR_LOSE, BitmapFactory.decodeResource(context.resources, R.drawable.playerlose))
+        formMap.put(CHAR_UP, Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, false))
         displayedBitmap = bitmap
+
+        x = 75
+        y = 50
 
         //calculating maxY
         maxY = screenY - bitmap.getHeight()

@@ -1,7 +1,6 @@
 package com.assodikyhilmy.bantugatot.models
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
 import com.assodikyhilmy.bantugatot.R
@@ -10,31 +9,8 @@ import java.util.*
 /**
  * Created by lenovo on 12/08/2017.
  */
-class Enemy(context: Context, screenX: Int, screenY: Int) {
-    //getters
-    //bitmap for the enemy
-    //we have already pasted the bitmap in the drawable folder
-    val bitmap: Bitmap
+class Enemy(context: Context, screenX: Int, screenY: Int): BasePhysic() {
 
-    //adding a setter to x coordinate so that we can change it after collision
-    //x and y coordinates
-    var x: Int
-    var y: Int
-        private set
-
-    //enemy speed
-    var speed = 1
-        private set
-
-    //min and max coordinates to keep the enemy inside the screen
-    private val maxX: Int
-    private val minX: Int
-    private val maxY: Int
-    private val minY: Int
-
-    //one more getter for getting the rect object
-    //creating a rect object
-    val detectCollision: Rect
     fun update(playerSpeed: Int) {
         //decreasing x coordinate so that enemy will move right to left
         x -= playerSpeed
