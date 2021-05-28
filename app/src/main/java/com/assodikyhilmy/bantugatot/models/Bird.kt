@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.Rect
 import com.assodikyhilmy.bantugatot.R
+import com.assodikyhilmy.bantugatot.helpers.MultiMediaUtils
 import java.util.*
 
 /**
@@ -55,6 +56,10 @@ class Bird(context: Context, screenX: Int, screenY: Int): MultiFormPhysic() {
         detectCollision.top = y
         detectCollision.right = x + bitmap.getWidth()
         detectCollision.bottom = y + bitmap.getHeight()
+    }
+
+    fun saved(context: Context) {
+        MultiMediaUtils.playGetScore(context)
     }
 
     init {

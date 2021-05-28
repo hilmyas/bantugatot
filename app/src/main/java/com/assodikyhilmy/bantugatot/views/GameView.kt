@@ -2,10 +2,7 @@ package com.assodikyhilmy.bantugatot.views
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -89,16 +86,17 @@ class GameView(
 
         //Updating the stars with player speed
         for (s in clouds) {
-            s.update(player.speed)
+            s.update(player.MIN_SPEED)
         }
 
         //updating the enemy coordinate with respect to player speed
         var birdCountTemp = birdCount
         for (i in 0 until birdCount) {
-            birds[i]!!.update(player.speed)
+            birds[i]!!.update(player.MIN_SPEED)
 
             //if collision occurrs with player
             if (Rect.intersects(player.detectCollision, birds[i]!!.detectCollision)) {
+                birds[i].saved(context)
                 //incrementing score as time passes
                 score++
 
@@ -117,9 +115,10 @@ class GameView(
             }
         }
         for (i in 0 until displayedEnemyCount) {
-            enemies[i]!!.update(player.speed)
+            enemies[i]!!.update(player.MIN_SPEED)
             if (Rect.intersects(player.detectCollision, enemies[i]!!.detectCollision)) {
                 player.playerLose()
+                enemies[i].claps(context)
                 playing = false
                 isGameOver = true
 
@@ -159,6 +158,7 @@ class GameView(
 
             //setting the paint color to white to draw the stars
             paint.color = Color.WHITE
+            paint.clearShadowLayer()
 
             //drawing all stars
             for (c in clouds) {
@@ -208,14 +208,23 @@ class GameView(
 
             //drawing the score on the game screen
             paint.textSize = context.resources.getDimension(R.dimen._24sdp)
-            canvas.drawText("Burung: $score", 100f, paint.textSize, paint)
+            paint.setTypeface(Typeface.create(Typeface.createFromAsset(context.assets, "fonts/luckiestguy.ttf"), Typeface.NORMAL))
+            paint.setShadowLayer(5f, 5f, 5f, Color.BLACK)
+            canvas.drawText("Score: $score", 100f, paint.textSize, paint)
 
             //draw game Over when the game is over
             if (isGameOver) {
                 paint.textSize = 150f
                 paint.textAlign = Paint.Align.CENTER
+                paint.color = Color.parseColor("#ffbb33")
                 val yPos = (canvas.getHeight() / 2 - (paint.descent() + paint.ascent()) / 2).toInt()
                 canvas.drawText("Game Over", canvas.getWidth() / 2.toFloat(), yPos.toFloat(), paint)
+
+                paint.textSize = 50f
+                paint.textAlign = Paint.Align.CENTER
+                paint.color = Color.WHITE
+                val yPos2 = yPos - ((paint.descent() + paint.ascent()) * 3)
+                canvas.drawText("Back to Continue", canvas.getWidth() / 2.toFloat(), yPos2.toFloat(), paint)
             }
             surfaceHolder.unlockCanvasAndPost(canvas)
         }

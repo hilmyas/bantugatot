@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.Rect
 import com.assodikyhilmy.bantugatot.R
+import com.assodikyhilmy.bantugatot.helpers.MultiMediaUtils
 import java.util.*
 
 /**
@@ -29,6 +30,10 @@ class Enemy(context: Context, screenX: Int, screenY: Int): BasePhysic() {
         detectCollision.top = y
         detectCollision.right = x + bitmap.width
         detectCollision.bottom = y + bitmap.height
+    }
+
+    fun claps(context: Context) {
+        MultiMediaUtils.playThunderClap(context)
     }
 
     init {

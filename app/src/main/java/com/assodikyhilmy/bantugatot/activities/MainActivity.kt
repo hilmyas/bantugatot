@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.assodikyhilmy.bantugatot.R
 import com.assodikyhilmy.bantugatot.databinding.ActivityMainBinding
+import com.assodikyhilmy.bantugatot.helpers.MultiMediaUtils
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -17,6 +18,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val view = binding.root
         setContentView(view)
 
+        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE
+                // Set the content to appear under the system bars so that the
+                // content doesn't resize when the system bars hide and show.
+                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                // Hide the nav bar and status bar
+                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_FULLSCREEN)
+
+
         //adding a click listener
         binding.buttonPlay.setOnClickListener(this)
         //setting the on click listener to high score button
@@ -24,6 +36,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
+        MultiMediaUtils.playGetScore(this)
         if (v === binding.buttonPlay) {
             //the transition from MainActivity to GameActivity
             startActivity(Intent(this@MainActivity, GameActivity::class.java))

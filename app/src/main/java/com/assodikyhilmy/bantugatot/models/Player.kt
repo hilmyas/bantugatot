@@ -25,8 +25,8 @@ class Player(context: Context, screenX: Int, screenY: Int): MultiFormPhysic() {
     private val GRAVITY = -10
 
     //Limit the bounds of the ship's speed
-    private val MIN_SPEED = 1
-    private val MAX_SPEED = 20
+    val MIN_SPEED = 3
+    val MAX_SPEED = 20
 
     //setting boosting true
     fun setBoosting() {
@@ -82,7 +82,7 @@ class Player(context: Context, screenX: Int, screenY: Int): MultiFormPhysic() {
     }
 
     init {
-        speed = 1
+        speed = 3
         val m = Matrix()
         m.postRotate(-15f)
         bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.player)
