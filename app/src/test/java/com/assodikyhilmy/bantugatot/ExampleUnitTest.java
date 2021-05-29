@@ -1,4 +1,4 @@
-package com.assodikyhilmy.bantugatot;
+package com.astudio.bantugatot;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.assodikyhilmy.bantugatot;
+package com.astudio.bantugatot;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.assodikyhilmy.bantugatot", appContext.getPackageName());
+        assertEquals("com.astudio.bantugatot", appContext.getPackageName());
     }
 }

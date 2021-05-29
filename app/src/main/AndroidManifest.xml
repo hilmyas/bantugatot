@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.assodikyhilmy.bantugatot">
+    package="com.astudio.bantugatot">
 
     <application
         android:name=".Application"
@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme"
         android:roundIcon="@mipmap/ic_launcher"
         tools:ignore="AllowBackup">
-        <activity android:name="com.assodikyhilmy.bantugatot.activities.MainActivity"
+        <activity android:name=".activities.MainActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,9 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.assodikyhilmy.bantugatot.activities.GameActivity"
+        <activity android:name=".activities.GameActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name="com.assodikyhilmy.bantugatot.activities.TopScoreActivity"
+        <activity android:name=".activities.TopScoreActivity"
             android:screenOrientation="landscape"/>
 
         <meta-data

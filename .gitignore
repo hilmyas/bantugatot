@@ -9,3 +9,6 @@
 .externalNativeBuild
 /app/google-services.json
 /keystore.jks
+/bantugatot_keystore.jks
+/private_key.pepk
+/bantugatot_keystore2.jks

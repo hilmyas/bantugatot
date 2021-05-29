@@ -3,12 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
+    android:background="@drawable/bg_no_character"
     android:keepScreenOn="true"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin">
+
+    <ImageView
+        android:layout_width="@dimen/_72sdp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/player"
+        android:layout_centerInParent="true"/>
 
     <TextView
         android:id="@+id/buttonPlay"
@@ -24,7 +30,7 @@
         android:shadowDy="5"
         android:shadowRadius="5"
         android:text="Play Now! "
-        android:textColor="@android:color/holo_orange_light"
+        android:textColor="#F08519"
         android:textSize="@dimen/_40sdp" />
 
     <TextView
@@ -41,7 +47,7 @@
         android:shadowDy="5"
         android:shadowRadius="5"
         android:text="High Scores "
-        android:textColor="@android:color/holo_blue_bright"
+        android:textColor="#B39B77"
         android:textSize="@dimen/_21sdp" />
 
 </RelativeLayout>
