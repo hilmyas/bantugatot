@@ -2,14 +2,18 @@ package com.astudio.bantugatot.activities
 
 import android.graphics.Point
 import android.os.Bundle
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.astudio.bantugatot.views.GameView
+import com.google.firebase.messaging.FirebaseMessaging
+import timber.log.Timber
 
 /**
  * Created by lenovo on 12/08/2017.
  */
-class GameActivity : AppCompatActivity() {
+class GameActivity : AppCompatActivity(), GameView.GameListener {
     //declaring gameview
     private var gameView: GameView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +44,7 @@ class GameActivity : AppCompatActivity() {
     //running the game when activity is resumed
     override fun onResume() {
         super.onResume()
-        gameView!!.resume()
+        gameView!!.resume(this)
 
         window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE
                 // Set the content to appear under the system bars so that the
@@ -51,5 +55,9 @@ class GameActivity : AppCompatActivity() {
                 // Hide the nav bar and status bar
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
+    }
+
+    override fun onGameOver() {
+        finish()
     }
 }

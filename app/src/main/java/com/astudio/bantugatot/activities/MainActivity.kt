@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.astudio.bantugatot.R
 import com.astudio.bantugatot.databinding.ActivityMainBinding
 import com.astudio.bantugatot.helpers.MultiMediaUtils
+import com.google.firebase.messaging.FirebaseMessaging
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -22,14 +24,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.buttonPlay.setOnClickListener(this)
         //setting the on click listener to high score button
         binding.buttonScore.setOnClickListener(this)
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            Timber.e("token = ${it.result}")
+        }
     }
 
     override fun onClick(v: View) {
         MultiMediaUtils.playGetScore(this)
         if (v === binding.buttonPlay) {
+            Runtime.getRuntime().gc()
             //the transition from MainActivity to GameActivity
             startActivity(Intent(this@MainActivity, GameActivity::class.java))
         } else if (v === binding.buttonScore) {
+            Runtime.getRuntime().gc()
             //the transition from MainActivity to HighScore activity
             startActivity(Intent(this@MainActivity, TopScoreActivity::class.java))
         }

@@ -3,6 +3,7 @@ package com.astudio.bantugatot.views
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.*
+import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -18,6 +19,11 @@ class GameView(
     context: Context, //a screenX holder
     val screenX: Int, val screenY: Int
 ) : SurfaceView(context), Runnable {
+
+    interface GameListener {
+        fun onGameOver()
+    }
+
     @Volatile
     var playing = false
     private var gameThread: Thread? = null
@@ -57,8 +63,34 @@ class GameView(
     //the high Scores Holder
     var topScore = IntArray(4)
 
+    var mGameListener: GameListener? = null
+
     //Shared Prefernces to store the High Scores
     var sharedPreferences: SharedPreferences
+
+    val gestureDetector by lazy {
+        GestureDetector(
+            context,
+            object : GestureDetector.SimpleOnGestureListener() {
+                override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+                    if (isGameOver)
+                        mGameListener?.onGameOver()
+                    return false
+                }
+
+                override fun onDoubleTap(e: MotionEvent?): Boolean {
+                    return super.onDoubleTap(e)
+                }
+
+                override fun onLongPress(e: MotionEvent?) {
+                }
+
+                override fun onSingleTapUp(e: MotionEvent?): Boolean {
+                    return super.onSingleTapUp(e)
+                }
+            })
+    }
+
     override fun run() {
         while (playing) {
             update()
@@ -68,6 +100,7 @@ class GameView(
     }
 
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
+        gestureDetector.onTouchEvent(motionEvent)
         when (motionEvent.action and MotionEvent.ACTION_MASK) {
             MotionEvent.ACTION_UP ->                 //stopping the boosting when screen is released
                 player.stopBoosting()
@@ -225,7 +258,7 @@ class GameView(
                 paint.textAlign = Paint.Align.CENTER
                 paint.color = Color.WHITE
                 val yPos2 = yPos - ((paint.descent() + paint.ascent()) * 3)
-                canvas.drawText("Back to Continue", canvas.getWidth() / 2.toFloat(), yPos2.toFloat(), paint)
+                canvas.drawText("Tap to Continue", canvas.getWidth() / 2.toFloat(), yPos2.toFloat(), paint)
             }
             surfaceHolder.unlockCanvasAndPost(canvas)
         }
@@ -247,8 +280,10 @@ class GameView(
         }
     }
 
-    fun resume() {
+    fun resume(mGameListener: GameListener?) {
         playing = true
+        if (this.mGameListener == null)
+            this.mGameListener = mGameListener
         gameThread = Thread(this)
         gameThread!!.start()
     }

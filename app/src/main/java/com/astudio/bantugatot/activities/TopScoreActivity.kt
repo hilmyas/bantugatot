@@ -3,6 +3,8 @@ package com.astudio.bantugatot.activities
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.astudio.bantugatot.databinding.ActivityTopScoreBinding
@@ -17,6 +19,31 @@ class TopScoreActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTopScoreBinding.inflate(layoutInflater)
         val view = binding.root
+
+        val gestureDetector = GestureDetector(
+                view.context,
+                object : GestureDetector.SimpleOnGestureListener() {
+                    override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+                        finish()
+                        return false
+                    }
+
+                    override fun onDoubleTap(e: MotionEvent?): Boolean {
+                        return super.onDoubleTap(e)
+                    }
+
+                    override fun onLongPress(e: MotionEvent?) {
+                    }
+
+                    override fun onSingleTapUp(e: MotionEvent?): Boolean {
+                        return super.onSingleTapUp(e)
+                    }
+                })
+        view.setOnTouchListener { v, event ->
+            gestureDetector.onTouchEvent(event)
+            true
+        }
+
         setContentView(view)
 
         //setting the values to the textViews
